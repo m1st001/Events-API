@@ -18,9 +18,7 @@ namespace EventsApi.Endpoints
             {
                 await db.Events.AddRangeAsync(new List<Event>()
                 {
-                    new Event(),
-                    new Event(),
-                    new Event()
+                    new Event("author", "name", "description", DateTime.Now),
                 });
 
                 await idb.Users.AddRangeAsync(new List<IdentityUser>()

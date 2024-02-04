@@ -42,21 +42,17 @@ namespace EventsApi.Endpoints
                         : TypedResults.NotFound();
             }
 
-            static async Task<IResult> CreateEvent(EventDTO todoItemDTO, AppDbContext db)
+            static async Task<IResult> CreateEvent(EventDTO eventDTO, AppDbContext db)
             {
-                var item = new Event
-                {
-
-                };
+                var item = new Event(eventDTO.AuthorId, eventDTO.Name, eventDTO.Description, eventDTO.StartDate);
 
                 db.Events.Add(item);
                 await db.SaveChangesAsync();
 
-                EventDTO eventDTO = new EventDTO(item);
-                return TypedResults.Created($"/events/{item.Id}", todoItemDTO);
+                return TypedResults.Created($"/events/{item.Id}", new EventDTO(item));
             }
 
-            static async Task<IResult> GetEventsByAuthor(int authorId, AppDbContext db)
+            static async Task<IResult> GetEventsByAuthor(string authorId, AppDbContext db)
             {
                 return TypedResults.Ok(await db.Events.Where(x => x.AuthorId == authorId).ToListAsync());
             }
