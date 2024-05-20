@@ -46,7 +46,7 @@ app.RegisterUserEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
-    app.RegisterTestEndpoints();
+    
 }
 
 app.Run();
